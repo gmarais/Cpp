@@ -6,7 +6,7 @@
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/07 00:52:24 by gmarais           #+#    #+#             //
-//   Updated: 2015/01/07 00:52:24 by gmarais          ###   ########.fr       //
+//   Updated: 2015/01/07 03:49:47 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 #include <iostream>
@@ -35,7 +35,10 @@ int		main(int ac, char **av)
 		while (!infile.eof())
 		{
 			std::getline(infile, line);
-			outfile << replaceAll(line, s1, s2) << std::endl;
+			if (!infile.eof())
+				outfile << replaceAll(line, s1, s2) << std::endl;
+			else
+				outfile << replaceAll(line, s1, s2);
 		}
 	}
 	else
