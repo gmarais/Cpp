@@ -52,7 +52,7 @@ std::string	ZombieEvent::_randomNameGenerator()
 		if (coin)
 			name[i] = (i % 2) ? this->_consonants[(int)(std::rand() % 20)] : this->_vowels[(int)(std::rand() % 5)];
 		else
-			name[i] = (i % 2) ? this->_vowels[(int)(std::rand() % 6)] : this->_consonants[(int)(std::rand() % 19)];
+			name[i] = (i % 2) ? this->_vowels[(int)(std::rand() % 6)] : this->_consonants[(int)(std::rand() % 20)];
 	}
 	return name;
 }
