@@ -1,22 +1,21 @@
 // ************************************************************************** //
 //                                                                            //
 //                                                        :::      ::::::::   //
-//   ScavTrap.hpp                                       :+:      :+:    :+:   //
+//   ClapTrap.hpp                                       :+:      :+:    :+:   //
 //                                                    +:+ +:+         +:+     //
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
-//   Created: 2015/01/08 23:52:10 by gmarais           #+#    #+#             //
-//   Updated: 2015/01/08 23:52:10 by gmarais          ###   ########.fr       //
+//   Created: 2015/01/09 03:18:08 by gmarais           #+#    #+#             //
+//   Updated: 2015/01/09 03:18:08 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
-#ifndef _ScavTrap_CLASS_
-#define _ScavTrap_CLASS_
+#ifndef _ClapTrap_CLASS_
+#define _ClapTrap_CLASS_
 
-#include "FragTrap.hpp"
 #include <iostream>
 
-class	ScavTrap
+class	ClapTrap
 {
 private:
 //---------------------------------------------------------/ PRIVATE VARIABLES /
@@ -24,6 +23,7 @@ private:
 
 protected:
 //-------------------------------------------------------/ PROTECTED VARIABLES /
+	std::string	_instance;
 	int			_hit_points;
 	int			_max_hit_points;
 	int			_energy_points;
@@ -38,12 +38,12 @@ protected:
 public:
 //----------------------------------------------------------/ PUBLIC VARIABLES /
 //------------------------------------------------------/ CONSTRUCT & DESTRUCT /
-	ScavTrap();
-	ScavTrap(std::string name);
-	ScavTrap(ScavTrap const & src);
-	~ScavTrap();
+	ClapTrap();
+	ClapTrap(std::string name);
+	ClapTrap(ClapTrap const & src);
+	virtual ~ClapTrap();
 //-----------------------------------------------------------------/ OPERATORS /
-	ScavTrap &	operator=(ScavTrap const & rhs);
+	ClapTrap &	operator=(ClapTrap const & rhs);
 //------------------------------------------------------------------/ GETTERSS /
 	int			getHitPoints() const;
 	int			getMaxHitPoints() const;
@@ -55,15 +55,15 @@ public:
 	int			getRangedAttackDamage() const;
 	int			getArmorReduction() const;
 //----------------------------------------------------------/ PUBLIC FUNCTIONS /
-	void		rangedAttack(std::string const & target);
-	void		meleeAttack(std::string const & target);
-	void		laserInfernoAttack(std::string const & target);
-	void		electricAttack(std::string const & target);
-	void		buttAttack(std::string const & target);
-	void		MinionTrap(std::string const & target);
-	void		takeDamage(unsigned int amount);
-	void		beRepaired(unsigned int amount);
-	void		challengeNewcomer() const;
+	void	rangedAttack(std::string const & target);
+	void	meleeAttack(std::string const & target);
+	void	laserInfernoAttack(std::string const & target);
+	void	electricAttack(std::string const & target);
+	void	buttAttack(std::string const & target);
+	void	MinionTrap(std::string const & target);
+	void	takeDamage(unsigned int amount);
+	void	beRepaired(unsigned int amount);
+
 };
 
 #endif

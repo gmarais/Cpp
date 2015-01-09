@@ -52,11 +52,18 @@ ScavTrap::ScavTrap()
 
 ScavTrap::ScavTrap(ScavTrap const & src)
 {
+	std::cout  << "<SC4V-TP><" << this->_name
+	<< "> Booting sequence complete. Hello! I am your new steward bot. "
+	<< "Designation: SC4V-TP, Hyperion Robot, Class C. "
+	<< "Please adjust factory settings to meet your needs before deployment."
+	<< std::endl;
 	*this = src;
 }
 
 ScavTrap::~ScavTrap()
 {
+	std::cout << "<SC4V-TP><" << this->_name
+	<< "> Crit-i-cal!" << std::endl;
 }
 
 //-------------------------------------------------------------------/ GETTERS /

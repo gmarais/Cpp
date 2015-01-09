@@ -53,6 +53,11 @@ _armor_damage_reduction(5)
 
 FragTrap::FragTrap(FragTrap const & src)
 {
+	std::cout  << "<FR4G-TP><" << this->_name
+	<< "> Booting sequence complete. Hello! I am your new steward bot. "
+	<< "Designation: FR4G-TP, Hyperion Robot, Class C. "
+	<< "Please adjust factory settings to meet your needs before deployment."
+	<< std::endl;
 	*this = src;
 }
 
