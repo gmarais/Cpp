@@ -52,5 +52,5 @@ do
 done
 else
 	echo -e "\033[1;31mUsage :\033[0;0m NewCpp [-c] [ClassName]* [-i] [InterfaceName]* [-s]";
-	echo -e "\033[1;30mOptions :\033[0;0m\n -i (Interface)\n -c (class)\n -s (Special)";
+	echo -e "\033[1;30mOptions :\033[0;0m\n -i (Interface)\n -c (class) (default)\n -s (Special)";
 fi
