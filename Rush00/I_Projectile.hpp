@@ -1,46 +1,44 @@
 // ************************************************************************** //
 //                                                                            //
 //                                                        :::      ::::::::   //
-//   I_Player.hpp                                       :+:      :+:    :+:   //
+//   I_Projectile.hpp                                   :+:      :+:    :+:   //
 //                                                    +:+ +:+         +:+     //
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
-//   Created: 2015/01/10 21:16:25 by gmarais           #+#    #+#             //
-//   Updated: 2015/01/10 21:16:25 by gmarais          ###   ########.fr       //
+//   Created: 2015/01/10 21:38:04 by gmarais           #+#    #+#             //
+//   Updated: 2015/01/10 21:38:04 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
-// CONCEPT 4 * 3
-//    /\-   -   -   -   x|
-//   (- D                |
-//    \/-   -   -   -   x|
-
-#ifndef _I_Player_CLASS_
-#define _I_Player_CLASS_
+#ifndef _I_Projectile_CLASS_
+#define _I_Projectile_CLASS_
 
 #include <iostream>
 
-class	I_Player
+struct Projectile
+{
+	int		x;
+	int		y;
+	int		speed;		// If we can use usleep this is enough else we will need to relay on
+	int		curr_loop	// processor speed and use a second variable: curr_loop
+};
+
+class	I_Projectile
 {
 private:
 //---------------------------------------------------------/ PRIVATE FUNCTIONS /
 
 protected:
 //-------------------------------------------------------/ PROTECTED FUNCTIONS /
-	I_Player();
-	/* Player Constructor :
-	 * Player constructor should call an instance of screen to print the player.
-	 * 
-	 * threads or 
-	 */
-	I_Player(I_Player const & src);
+	I_Projectile();
+	I_Projectile(I_Projectile const & src);
 
 public:
 //------------------------------------------------------/ CONSTRUCT & DESTRUCT /
-	virtual ~I_Player();
+	virtual ~I_Projectile();
 //----------------------------------------------------------/ PUBLIC FUNCTIONS /
 //-----------------------------------------------------------------/ OPERATORS /
-	I_Player &	operator=(I_Player const & rhs);
+	I_Projectile &	operator=(I_Projectile const & rhs);
 
 };
 
