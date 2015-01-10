@@ -6,7 +6,7 @@
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 02:55:00 by gmarais           #+#    #+#             //
-//   Updated: 2015/01/10 06:01:25 by gmarais          ###   ########.fr       //
+//   Updated: 2015/01/10 06:35:53 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -82,6 +82,8 @@ void				Character::attack(Enemy *e)
 Character &	Character::operator=(Character const & rhs)
 {
 	this->_name = rhs.getName();
+	this->_ap = rhs.getAP();
+	this->_weapon = rhs.getWeapon();
 	return *this;
 }
 
