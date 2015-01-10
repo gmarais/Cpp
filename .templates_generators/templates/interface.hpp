@@ -7,15 +7,12 @@
 class	ClassName
 {
 private:
-//---------------------------------------------------------/ PRIVATE VARIABLES /
 //---------------------------------------------------------/ PRIVATE FUNCTIONS /
 
 protected:
-//-------------------------------------------------------/ PROTECTED VARIABLES /
 //-------------------------------------------------------/ PROTECTED FUNCTIONS /
 
 public:
-//----------------------------------------------------------/ PUBLIC VARIABLES /
 //------------------------------------------------------/ CONSTRUCT & DESTRUCT /
 	ClassName();
 	ClassName(ClassName const & src);

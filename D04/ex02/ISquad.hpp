@@ -6,7 +6,7 @@
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 06:51:42 by gmarais           #+#    #+#             //
-//   Updated: 2015/01/10 06:51:42 by gmarais          ###   ########.fr       //
+//   Updated: 2015/01/10 07:02:34 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -15,26 +15,13 @@
 
 #include <iostream>
 
-class	ISquad
+class ISquad
 {
-private:
-//---------------------------------------------------------/ PRIVATE VARIABLES /
-//---------------------------------------------------------/ PRIVATE FUNCTIONS /
-
-protected:
-//-------------------------------------------------------/ PROTECTED VARIABLES /
-//-------------------------------------------------------/ PROTECTED FUNCTIONS /
-
 public:
-//----------------------------------------------------------/ PUBLIC VARIABLES /
-//------------------------------------------------------/ CONSTRUCT & DESTRUCT /
-	ISquad();
-	ISquad(ISquad const & src);
-	~ISquad();
-//-----------------------------------------------------------------/ OPERATORS /
-	ISquad &	operator=(ISquad const & rhs);
-//----------------------------------------------------------/ PUBLIC FUNCTIONS /
-
+	virtual ~ISquad() {}
+	virtual int getCount() const = 0;
+	virtual ISpaceMarine* getUnit(int) = 0;
+	virtual int push(ISpaceMarine*) = 0;
 };
 
 #endif

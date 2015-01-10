@@ -33,7 +33,11 @@ do
 		sed s/"$filename"/"${a1}${exthpp}${after}"/g ~/.templates_generators/templates/header_42.cpp > ./$a1$exthpp;
 		sed -i.bak s/"{date}"/"$dateTime"/g ./$a1$exthpp >> ./$a1$exthpp;
 		rm ./$a1$exthpp.bak
-		sed s/ClassName/$a1/g ~/.templates_generators/templates/class.hpp >> ./$a1$exthpp;
+		if [ -z "$is_interface" ]; then
+			sed s/ClassName/$a1/g ~/.templates_generators/templates/class.hpp >> ./$a1$exthpp;
+		else
+			sed s/ClassName/$a1/g ~/.templates_generators/templates/interface.hpp >> ./$a1$exthpp;
+		fi
 		echo -e "$a1$exthpp created!\033[0;0m";
 	fi
 done

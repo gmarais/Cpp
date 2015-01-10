@@ -5,8 +5,8 @@
 //                                                    +:+ +:+         +:+     //
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
-//   Created: 2015/01/10 06:10:43 by gmarais           #+#    #+#             //
-//   Updated: 2015/01/10 06:10:43 by gmarais          ###   ########.fr       //
+//   Created: 2015/01/10 07:10:24 by gmarais           #+#    #+#             //
+//   Updated: 2015/01/10 07:10:24 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -31,9 +31,9 @@ public:
 	TacticalMarine();
 	TacticalMarine(TacticalMarine const & src);
 	~TacticalMarine();
+//----------------------------------------------------------/ PUBLIC FUNCTIONS /
 //-----------------------------------------------------------------/ OPERATORS /
 	TacticalMarine &	operator=(TacticalMarine const & rhs);
-//----------------------------------------------------------/ PUBLIC FUNCTIONS /
 
 };
 
