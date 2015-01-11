@@ -20,6 +20,7 @@ public:
 	ClassName();
 	ClassName(ClassName const & src);
 	~ClassName();
+//---------------------------------------------------------/ GETTERS & SETTERS /
 //----------------------------------------------------------/ PUBLIC FUNCTIONS /
 //-----------------------------------------------------------------/ OPERATORS /
 	ClassName &	operator=(ClassName const & rhs);
