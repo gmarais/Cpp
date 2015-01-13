@@ -1,8 +1,8 @@
 
 #ifndef _ClassName_CLASS_
-#define _ClassName_CLASS_
+# define _ClassName_CLASS_
 
-#include <iostream>
+# include <iostream>
 
 class	ClassName
 {

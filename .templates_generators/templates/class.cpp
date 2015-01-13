@@ -25,4 +25,5 @@ ClassName &	ClassName::operator=(ClassName const & rhs)
 	// @TODO : COPY ATTRIBUTES HERE.
 	return *this;
 }
+
 //-------------------------------------------------------------/ OUTSIDE SCOPE /
