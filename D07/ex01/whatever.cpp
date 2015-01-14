@@ -6,21 +6,22 @@
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/14 11:49:49 by gmarais           #+#    #+#             //
-//   Updated: 2015/01/14 14:19:23 by gmarais          ###   ########.fr       //
+//   Updated: 2015/01/14 14:48:34 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 #include <iostream>
 
-template <typename T>
-void	iter(T* array, unsigned int length, void (*f)(T&))
+template <typename T, typename I>
+void	iter(T* array, I length, void (*f)(T&))
 {
-	for (unsigned int i = 0; i < length; i++)
+	for (I i = 0; i < length; i++)
 	{
 		f(array[i]);
 	}
 }
 
-void	yolosquare(int& a)
+template <typename T>
+void	yolosquare(T& a)
 {
 	a *=a;
 }
