@@ -6,7 +6,7 @@
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/14 12:13:51 by gmarais           #+#    #+#             //
-//   Updated: 2015/01/14 14:15:26 by gmarais          ###   ########.fr       //
+//   Updated: 2015/01/14 16:42:39 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -74,7 +74,7 @@ T & Array<T>::operator[](unsigned int i)
 {
 	if(i > this->_size)
 	{
-		throw new std::exception();
+		throw std::exception();
 	}
 	return this->_elements[i];
 }
