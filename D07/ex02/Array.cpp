@@ -6,7 +6,7 @@
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/14 12:13:51 by gmarais           #+#    #+#             //
-//   Updated: 2015/01/14 16:42:39 by gmarais          ###   ########.fr       //
+//   Updated: 2015/01/14 17:11:09 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -72,7 +72,7 @@ Array<T> &	Array<T>::operator=(Array const & rhs)
 template <typename T>
 T & Array<T>::operator[](unsigned int i)
 {
-	if(i > this->_size)
+	if(i >= this->_size)
 	{
 		throw std::exception();
 	}

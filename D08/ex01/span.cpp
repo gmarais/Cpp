@@ -6,7 +6,7 @@
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/15 18:25:29 by gmarais           #+#    #+#             //
-//   Updated: 2015/01/15 18:25:29 by gmarais          ###   ########.fr       //
+//   Updated: 2015/01/16 08:41:29 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -38,7 +38,7 @@ void	span::addNumber(int number)
 {
 	if (this->_lst.size() >= this->_n)
 		throw std::runtime_error("Span list is full.");	
-	if (*find(this->_lst.begin(), this->_lst.end(), number) != number)
+	if (!this->_lst.size() || *find(this->_lst.begin(), this->_lst.end(), number) != number)
 	{
 		this->_lst.push_back(number);
 	}
