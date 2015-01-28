@@ -11,16 +11,11 @@ private:
 
 protected:
 //-------------------------------------------------------/ PROTECTED FUNCTIONS /
-	ClassName();
-	ClassName(ClassName const & src);
 
 public:
-//------------------------------------------------------/ CONSTRUCT & DESTRUCT /
-	virtual ~ClassName();
 //---------------------------------------------------------/ GETTERS & SETTERS /
 //----------------------------------------------------------/ PUBLIC FUNCTIONS /
 //-----------------------------------------------------------------/ OPERATORS /
-	ClassName &	operator=(ClassName const & rhs);
 
 };
 
