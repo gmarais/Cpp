@@ -42,7 +42,7 @@ int				AbstractVM::getFilesNumber() const
 
 const char**	AbstractVM::getFiles() const
 {
-	return this->_files;
+	return const_cast<const char**>(this->_files);
 }
 
 //-----------------------------------------------------------------/ FUNCTIONS /
@@ -50,7 +50,7 @@ int				AbstractVM::run()
 {
 	if (this->_files_number < 0)
 	{
-		std::cout << "\033[1;31mUsage error:\033[0;0m Invalid number of arguments."
+		std::cout << "\033[1;31mUsage error:\033[0;0m Invalid number of arguments.";
 		return 1;
 	}
 	else if (this->_files_number)
@@ -58,15 +58,15 @@ int				AbstractVM::run()
 	}
 	else
 	{
-		
 	}
+	return 0;
 }
 
 //-----------------------------------------------------------------/ OPERATORS /
 AbstractVM &	AbstractVM::operator=(AbstractVM const & rhs)
 {
 	this->_files_number = rhs.getFilesNumber();
-	this->_files = rhs.getFiles();
+	this->_files = const_cast<char **>(rhs.getFiles());
 	return *this;
 }
 

@@ -2,8 +2,6 @@
 #ifndef _ClassName_CLASS_
 # define _ClassName_CLASS_
 
-# include <iostream>
-
 class	ClassName
 {
 private:

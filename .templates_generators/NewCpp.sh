@@ -5,6 +5,10 @@ do
 		is_interface="true"
 	elif [ "-c" == "$var" ]; then
 		is_interface=""
+	elif [ "-m" == "$var" ]; then
+		echo -e "\033[1;30mMakefile :\033[0;0m";
+		read -p "Enter executable name: " ExecName
+		~/.templates_generators/NewMakefile.sh "$ExecName";
 	elif [ "-s" == "$var" ]; then
 		echo -e "\033[1;30mSpecial file :\033[0;0m";
 		read -p "Enter template name: " tplname

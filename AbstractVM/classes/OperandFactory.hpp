@@ -1,26 +1,32 @@
 // ************************************************************************** //
 //                                                                            //
 //                                                        :::      ::::::::   //
-//   AbstractVM.hpp                                     :+:      :+:    :+:   //
+//   OperandFactory.hpp                                 :+:      :+:    :+:   //
 //                                                    +:+ +:+         +:+     //
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
-//   Created: 2015/01/27 16:44:03 by gmarais           #+#    #+#             //
-//   Updated: 2015/01/28 13:05:39 by gmarais          ###   ########.fr       //
+//   Created: 2015/01/29 15:59:03 by gmarais           #+#    #+#             //
+//   Updated: 2015/01/29 15:59:03 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
-#ifndef _AbstractVM_CLASS_
-# define _AbstractVM_CLASS_
+#ifndef _OperandFactory_CLASS_
+# define _OperandFactory_CLASS_
 
-class	AbstractVM
+# include <iostream>
+# include "eOperandType.hpp"
+# include "IOperand.hpp"
+
+class	OperandFactory
 {
 private:
 //---------------------------------------------------------/ PRIVATE VARIABLES /
-	int		_files_number;
-	char**	_files;
 //---------------------------------------------------------/ PRIVATE FUNCTIONS /
-	AbstractVM();
+	IOperand const *	createInt8( std::string const & value ) const;
+	IOperand const *	createInt16( std::string const & value ) const;
+	IOperand const *	createInt32( std::string const & value ) const;
+	IOperand const *	createFloat( std::string const & value ) const;
+	IOperand const *	createDouble( std::string const & value ) const;
 
 protected:
 //-------------------------------------------------------/ PROTECTED VARIABLES /
@@ -29,16 +35,14 @@ protected:
 public:
 //----------------------------------------------------------/ PUBLIC VARIABLES /
 //------------------------------------------------------/ CONSTRUCT & DESTRUCT /
-	AbstractVM(int files_number, char *files);
-	AbstractVM(AbstractVM const & src);
-	virtual	~AbstractVM();
+	OperandFactory();
+	OperandFactory(OperandFactory const & src);
+	virtual ~OperandFactory();
 //---------------------------------------------------------/ GETTERS & SETTERS /
-	int				getFilesNumber() const;
-	const char**	getFiles() const;
 //----------------------------------------------------------/ PUBLIC FUNCTIONS /
-	int				run();
+	IOperand const * createOperand( eOperandType type, std::string const & value ) const;
 //-----------------------------------------------------------------/ OPERATORS /
-	AbstractVM &	operator=(AbstractVM const & rhs);
+	OperandFactory &	operator=(OperandFactory const & rhs);
 
 };
 
