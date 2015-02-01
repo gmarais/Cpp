@@ -13,6 +13,8 @@
 #ifndef _AbstractVM_CLASS_
 # define _AbstractVM_CLASS_
 
+#include <iostream>
+
 class	AbstractVM
 {
 private:
@@ -21,6 +23,7 @@ private:
 	char**	_files;
 //---------------------------------------------------------/ PRIVATE FUNCTIONS /
 	AbstractVM();
+	void			executeLine(std::string line);
 
 protected:
 //-------------------------------------------------------/ PROTECTED VARIABLES /

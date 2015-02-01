@@ -14,6 +14,6 @@
 
 int		main(int ac, char** av)
 {
-	AbstractVM	vm(ac -1, av++);
+	AbstractVM	vm(ac -1, ++av);
 	return vm.run();
 }

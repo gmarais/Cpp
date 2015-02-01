@@ -11,7 +11,9 @@
 // ************************************************************************** //
 
 #include "AbstractVM.hpp"
-#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <cstring>
 
 //--------------------------------------------------------------/ STATICS INIT /
 //------------------------------------------------------/ CONSTRUCT & DESTRUCT /
@@ -46,18 +48,42 @@ const char**	AbstractVM::getFiles() const
 }
 
 //-----------------------------------------------------------------/ FUNCTIONS /
+void			AbstractVM::executeLine(std::string line)
+{
+	std::cout << line << std::endl;	
+}
+
 int				AbstractVM::run()
 {
 	if (this->_files_number < 0)
 	{
-		std::cout << "\033[1;31mUsage error:\033[0;0m Invalid number of arguments.";
+		std::cout << "\033[1;31mUsage error:\033[0;0m This program takes his name as first argument." << std::endl;
 		return 1;
 	}
 	else if (this->_files_number)
 	{
+		std::fstream	fs;
+		std::string		line;
+
+		for (int i = 0; i < this->_files_number; ++i)
+		{
+			fs.open(this->_files[i], std::fstream::in);
+			while (std::getline(fs, line))
+			{
+				this->executeLine(line);
+			}
+			fs.close();
+		}
 	}
 	else
 	{
+		std::string		line;
+
+		while (line.find(";;") == std::string::npos && std::getline(std::cin, line))
+		{
+			this->executeLine(line);
+		}
+		std::cout << "Hello" << std::endl;
 	}
 	return 0;
 }
