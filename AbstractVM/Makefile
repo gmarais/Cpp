@@ -17,6 +17,7 @@ CXXFLAGS += -I./ -I./classes -I./interfaces
 
 NAME = avm
 SRC = main.cpp \
+split.cpp \
 classes/AbstractVM.cpp \
 classes/OperandFactory.cpp
 

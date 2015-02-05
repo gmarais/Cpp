@@ -14,6 +14,8 @@
 # define _AbstractVM_CLASS_
 
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
 class	AbstractVM
 {
@@ -23,6 +25,7 @@ private:
 	char**	_files;
 //---------------------------------------------------------/ PRIVATE FUNCTIONS /
 	AbstractVM();
+	int				seekKeyword(std::string command);
 	void			executeLine(std::string line);
 
 protected:

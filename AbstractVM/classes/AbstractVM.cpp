@@ -13,7 +13,7 @@
 #include "AbstractVM.hpp"
 #include <fstream>
 #include <sstream>
-#include <cstring>
+#include "tools.hpp"
 
 //--------------------------------------------------------------/ STATICS INIT /
 //------------------------------------------------------/ CONSTRUCT & DESTRUCT /
@@ -48,9 +48,23 @@ const char**	AbstractVM::getFiles() const
 }
 
 //-----------------------------------------------------------------/ FUNCTIONS /
+int				AbstractVM::seekKeyword(std::string command)
+{
+	std::vector<std::string> keywords(std::string("push"), std::string("mov"));
+
+	if (find(keywords.begin(), keywords.end(), command) != keywords.end())
+		return 1;
+	return 0;
+}
+
 void			AbstractVM::executeLine(std::string line)
 {
-	std::cout << line << std::endl;	
+	std::vector<std::string>	words = split(line, std::string(" 	"));
+	if (this->seekKeyword(words[0]))
+	{
+		std::cout << "\033[1;34m" << words[0] << "\033[0;0m" << std::endl;
+	}
+	std::cout << "line provided: " << line << std::endl;
 }
 
 int				AbstractVM::run()
