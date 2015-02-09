@@ -6,7 +6,7 @@
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/27 16:44:03 by gmarais           #+#    #+#             //
-//   Updated: 2015/01/28 18:39:01 by gmarais          ###   ########.fr       //
+//   Updated: 2015/02/09 18:19:01 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -50,8 +50,10 @@ const char**	AbstractVM::getFiles() const
 //-----------------------------------------------------------------/ FUNCTIONS /
 int				AbstractVM::seekKeyword(std::string command)
 {
-	std::vector<std::string> keywords(std::string("push"), std::string("mov"));
+	std::vector<std::string> keywords;
 
+	keywords.push_back("push");
+	keywords.push_back("mov");
 	if (find(keywords.begin(), keywords.end(), command) != keywords.end())
 		return 1;
 	return 0;
@@ -59,8 +61,9 @@ int				AbstractVM::seekKeyword(std::string command)
 
 void			AbstractVM::executeLine(std::string line)
 {
-	std::vector<std::string>	words = split(line, std::string(" 	"));
-	if (this->seekKeyword(words[0]))
+	std::vector<std::string>	words = ft_split(line, std::string(" 	"));
+
+	if (words.begin() != words.end() && this->seekKeyword(words[0]))
 	{
 		std::cout << "\033[1;34m" << words[0] << "\033[0;0m" << std::endl;
 	}
@@ -97,7 +100,6 @@ int				AbstractVM::run()
 		{
 			this->executeLine(line);
 		}
-		std::cout << "Hello" << std::endl;
 	}
 	return 0;
 }

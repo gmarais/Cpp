@@ -6,7 +6,7 @@
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/27 16:44:03 by gmarais           #+#    #+#             //
-//   Updated: 2015/01/28 13:05:39 by gmarais          ###   ########.fr       //
+//   Updated: 2015/02/09 17:01:17 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -26,7 +26,7 @@ private:
 //---------------------------------------------------------/ PRIVATE FUNCTIONS /
 	AbstractVM();
 	int				seekKeyword(std::string command);
-	void			executeLine(std::string line);
+ 	void			executeLine(std::string line);
 
 protected:
 //-------------------------------------------------------/ PROTECTED VARIABLES /
