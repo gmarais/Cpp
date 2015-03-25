@@ -6,7 +6,7 @@
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/27 16:44:03 by gmarais           #+#    #+#             //
-//   Updated: 2015/02/09 17:01:17 by gmarais          ###   ########.fr       //
+//   Updated: 2015/03/25 17:23:31 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -25,8 +25,10 @@ private:
 	char**	_files;
 //---------------------------------------------------------/ PRIVATE FUNCTIONS /
 	AbstractVM();
-	int				seekKeyword(std::string command);
+	int				seekKeyword(std::string command, std::vector<std::string> words);
  	void			executeLine(std::string line);
+	int				push(std::vector<std::string> args);
+	int				mov(std::vector<std::string> args);
 
 protected:
 //-------------------------------------------------------/ PROTECTED VARIABLES /

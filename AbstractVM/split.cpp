@@ -6,7 +6,7 @@
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/27 16:43:16 by gmarais           #+#    #+#             //
-//   Updated: 2015/02/09 17:54:55 by gmarais          ###   ########.fr       //
+//   Updated: 2015/03/25 16:44:06 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 #include <iostream>
@@ -15,8 +15,8 @@
 std::vector<std::string>	ft_split(const std::string & str, const std::string & delimiters)
 {
 	std::vector<std::string>		v;
-	typename std::string::size_type	start = 0;
-	typename std::string::size_type	pos = str.find_first_of(delimiters, start);
+	std::string::size_type	start = 0;
+	std::string::size_type	pos = str.find_first_of(delimiters, start);
 	while (pos != std::string::npos)
 	{
 		if (pos != start)

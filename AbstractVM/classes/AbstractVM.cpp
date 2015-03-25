@@ -6,7 +6,7 @@
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/27 16:44:03 by gmarais           #+#    #+#             //
-//   Updated: 2015/02/09 18:19:01 by gmarais          ###   ########.fr       //
+//   Updated: 2015/03/25 17:26:33 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -14,6 +14,7 @@
 #include <fstream>
 #include <sstream>
 #include "tools.hpp"
+typedef  int (AbstractVM::*AbstractVMMember)(std::vector<std::string> args);
 
 //--------------------------------------------------------------/ STATICS INIT /
 //------------------------------------------------------/ CONSTRUCT & DESTRUCT /
@@ -47,15 +48,36 @@ const char**	AbstractVM::getFiles() const
 	return const_cast<const char**>(this->_files);
 }
 
+//-------------------------------------------------------/ OPERATING FUNCTIONS /
+int			AbstractVM::push(std::vector<std::string> args)
+{
+	(void)args;
+	return 0;
+}
+
+int			AbstractVM::mov(std::vector<std::string> args)
+{
+	(void)args;
+	return 0;
+}
+
 //-----------------------------------------------------------------/ FUNCTIONS /
-int				AbstractVM::seekKeyword(std::string command)
+int				AbstractVM::seekKeyword(std::string command, std::vector<std::string> words)
 {
 	std::vector<std::string> keywords;
-
 	keywords.push_back("push");
 	keywords.push_back("mov");
-	if (find(keywords.begin(), keywords.end(), command) != keywords.end())
+	std::vector<std::string>::iterator it;
+	AbstractVMMember _commands[] = {
+		&AbstractVM::push,
+		&AbstractVM::mov
+	};
+
+	if ((it = find(keywords.begin(), keywords.end(), command)) != keywords.end())
+	{
+		(this->*(_commands[std::distance(keywords.begin(), it)]))(words);
 		return 1;
+	}
 	return 0;
 }
 
@@ -63,18 +85,20 @@ void			AbstractVM::executeLine(std::string line)
 {
 	std::vector<std::string>	words = ft_split(line, std::string(" 	"));
 
-	if (words.begin() != words.end() && this->seekKeyword(words[0]))
+	if (words.begin() != words.end() && this->seekKeyword(words[0], words))
 	{
-		std::cout << "\033[1;34m" << words[0] << "\033[0;0m" << std::endl;
+		std::cout << "\033[1;34m" << words[0] << "\033[0;0m";
+		for (unsigned int i = 1; i < words.size(); i++)
+			std::cout << " " << words[i];
+		std::cout << std::endl;
 	}
-	std::cout << "line provided: " << line << std::endl;
 }
 
 int				AbstractVM::run()
 {
 	if (this->_files_number < 0)
 	{
-		std::cout << "\033[1;31mUsage error:\033[0;0m This program takes his name as first argument." << std::endl;
+		std::cout << "\033[1;31mUsage error:\033[0;0m This program takes at least one argument." << std::endl;
 		return 1;
 	}
 	else if (this->_files_number)
