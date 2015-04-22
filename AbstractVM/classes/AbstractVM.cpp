@@ -6,7 +6,7 @@
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/27 16:44:03 by gmarais           #+#    #+#             //
-//   Updated: 2015/03/25 17:26:33 by gmarais          ###   ########.fr       //
+//   Updated: 2015/04/22 16:28:08 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -51,13 +51,90 @@ const char**	AbstractVM::getFiles() const
 //-------------------------------------------------------/ OPERATING FUNCTIONS /
 int			AbstractVM::push(std::vector<std::string> args)
 {
-	(void)args;
+	args.erase(args.begin());
+	if (!args.size() || args[0][0] == ';')
+		std::cout << "ERROR: Missing argument." << std::endl;
 	return 0;
 }
 
-int			AbstractVM::mov(std::vector<std::string> args)
+int			AbstractVM::pop(std::vector<std::string> args)
 {
-	(void)args;
+	args.erase(args.begin());
+	if (args.size() > 0 && args[0][0] != ';')
+		std::cout << "ERROR: unexpected argument." << std::endl;
+	return 0;
+}
+
+int			AbstractVM::dump(std::vector<std::string> args)
+{
+	args.erase(args.begin());
+	if (args.size() > 0 && args[0][0] != ';')
+		std::cout << "ERROR: unexpected argument." << std::endl;
+	return 0;
+}
+
+int			AbstractVM::assert(std::vector<std::string> args)
+{
+	args.erase(args.begin());
+	if (!args.size() || args[0][0] == ';')
+		std::cout << "ERROR: Missing argument." << std::endl;
+	return 0;
+}
+
+int			AbstractVM::add(std::vector<std::string> args)
+{
+	args.erase(args.begin());
+	if (args.size() > 0 && args[0][0] != ';')
+		std::cout << "ERROR: unexpected argument." << std::endl;
+	return 0;
+}
+
+int			AbstractVM::sub(std::vector<std::string> args)
+{
+	args.erase(args.begin());
+	if (args.size() > 0 && args[0][0] != ';')
+		std::cout << "ERROR: unexpected argument." << std::endl;
+	return 0;
+}
+
+int			AbstractVM::mul(std::vector<std::string> args)
+{
+	args.erase(args.begin());
+	if (args.size() > 0 && args[0][0] != ';')
+		std::cout << "ERROR: unexpected argument." << std::endl;
+	return 0;
+}
+
+int			AbstractVM::div(std::vector<std::string> args)
+{
+	args.erase(args.begin());
+	if (args.size() > 0 && args[0][0] != ';')
+		std::cout << "ERROR: unexpected argument." << std::endl;
+	return 0;
+}
+
+int			AbstractVM::mod(std::vector<std::string> args)
+{
+	args.erase(args.begin());
+	if (args.size() > 0 && args[0][0] != ';')
+		std::cout << "ERROR: unexpected argument." << std::endl;
+	return 0;
+}
+
+int			AbstractVM::print(std::vector<std::string> args)
+{
+	args.erase(args.begin());
+	if (args.size() > 0 && args[0][0] != ';')
+		std::cout << "ERROR: unexpected argument." << std::endl;
+	return 0;
+}
+
+int			AbstractVM::exit(std::vector<std::string> args)
+{
+	args.erase(args.begin());
+	if (args.size() > 0 && args[0][0] != ';')
+		std::cout << "ERROR: unexpected argument." << std::endl;
+	this->_exited = true;
 	return 0;
 }
 
@@ -66,17 +143,34 @@ int				AbstractVM::seekKeyword(std::string command, std::vector<std::string> wor
 {
 	std::vector<std::string> keywords;
 	keywords.push_back("push");
-	keywords.push_back("mov");
+	keywords.push_back("pop");
+	keywords.push_back("dump");
+	keywords.push_back("assert");
+	keywords.push_back("add");
+	keywords.push_back("sub");
+	keywords.push_back("mul");
+	keywords.push_back("div");
+	keywords.push_back("mod");
+	keywords.push_back("print");
+	keywords.push_back("exit");
 	std::vector<std::string>::iterator it;
 	AbstractVMMember _commands[] = {
 		&AbstractVM::push,
-		&AbstractVM::mov
+		&AbstractVM::pop,
+		&AbstractVM::dump,
+		&AbstractVM::assert,
+		&AbstractVM::add,
+		&AbstractVM::sub,
+		&AbstractVM::mul,
+		&AbstractVM::div,
+		&AbstractVM::mod,
+		&AbstractVM::print,
+		&AbstractVM::exit
 	};
 
 	if ((it = find(keywords.begin(), keywords.end(), command)) != keywords.end())
 	{
-		(this->*(_commands[std::distance(keywords.begin(), it)]))(words);
-		return 1;
+		return (this->*(_commands[std::distance(keywords.begin(), it)]))(words);
 	}
 	return 0;
 }
@@ -91,11 +185,14 @@ void			AbstractVM::executeLine(std::string line)
 		for (unsigned int i = 1; i < words.size(); i++)
 			std::cout << " " << words[i];
 		std::cout << std::endl;
+	} else {
+		
 	}
 }
 
 int				AbstractVM::run()
 {
+	this->_exited = false;
 	if (this->_files_number < 0)
 	{
 		std::cout << "\033[1;31mUsage error:\033[0;0m This program takes at least one argument." << std::endl;
@@ -106,10 +203,10 @@ int				AbstractVM::run()
 		std::fstream	fs;
 		std::string		line;
 
-		for (int i = 0; i < this->_files_number; ++i)
+		for (int i = 0; !this->_exited && i < this->_files_number; ++i)
 		{
 			fs.open(this->_files[i], std::fstream::in);
-			while (std::getline(fs, line))
+			while (!this->_exited && std::getline(fs, line))
 			{
 				this->executeLine(line);
 			}
@@ -120,7 +217,7 @@ int				AbstractVM::run()
 	{
 		std::string		line;
 
-		while (line.find(";;") == std::string::npos && std::getline(std::cin, line))
+		while (!this->_exited && line.find(";;") == std::string::npos && std::getline(std::cin, line))
 		{
 			this->executeLine(line);
 		}
