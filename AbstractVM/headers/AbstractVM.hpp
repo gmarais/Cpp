@@ -13,32 +13,49 @@
 #ifndef _AbstractVM_CLASS_
 # define _AbstractVM_CLASS_
 
-#include <iostream>
-#include <vector>
-#include <algorithm>
+# include <iostream>
+# include <fstream>
+# include <sstream>
+# include <vector>
+# include <list>
+# include <map>
+# include <algorithm>
+# include "Tools.hpp"
+# include "Command.hpp"
+# include <stdexcept>
+# include "IOperand.hpp"
+# include "OperandFactory.hpp"
+
+class	AbstractVM;
+typedef  void (AbstractVM::*AbstractVMMember)(Parameter_t const *param);
 
 class	AbstractVM
 {
 private:
 //---------------------------------------------------------/ PRIVATE VARIABLES /
-	int		_files_number;
-	char**	_files;
-	bool	_exited;
+	int		filesNumber_;
+	char**	files_;
+	bool	exited_;
+	std::map<std::string, AbstractVMMember> commands_;
+	std::map<std::string, eOperandType> typeNames_;
+	std::list<IOperand const *> stack_;
+	OperandFactory factory_;
+
 //---------------------------------------------------------/ PRIVATE FUNCTIONS /
 	AbstractVM();
-	int				seekKeyword(std::string command, std::vector<std::string> words);
- 	void			executeLine(std::string line);
-	int				push(std::vector<std::string> args);
-	int				pop(std::vector<std::string> args);
-	int				dump(std::vector<std::string> args);
-	int				assert(std::vector<std::string> args);
-	int				add(std::vector<std::string> args);
-	int				sub(std::vector<std::string> args);
-	int				mul(std::vector<std::string> args);
-	int				div(std::vector<std::string> args);
-	int				mod(std::vector<std::string> args);
-	int				print(std::vector<std::string> args);
-	int				exit(std::vector<std::string> args);
+ 	void			executeLine(std::string line, unsigned int lineNumber);
+	void			fetchCommand(Command *cmd);
+	void			push(Parameter_t const *param);
+	void			pop(Parameter_t const *param);
+	void			dump(Parameter_t const *param);
+	void			assert(Parameter_t const *param);
+	void			add(Parameter_t const *param);
+	void			sub(Parameter_t const *param);
+	void			mul(Parameter_t const *param);
+	void			div(Parameter_t const *param);
+	void			mod(Parameter_t const *param);
+	void			print(Parameter_t const *param);
+	void			exit(Parameter_t const *param);
 
 protected:
 //-------------------------------------------------------/ PROTECTED VARIABLES /

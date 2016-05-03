@@ -12,6 +12,7 @@
 
 #ifndef _IOperand_CLASS_
 # define _IOperand_CLASS_
+# include "eOperandType.hpp"
 
 class IOperand
 {

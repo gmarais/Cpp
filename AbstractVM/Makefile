@@ -13,13 +13,19 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror
 LDFLAGS =
-CXXFLAGS += -I./ -I./classes -I./interfaces
+CXXFLAGS += -I./ -I./headers -I./headers/operands
 
 NAME = avm
 SRC = main.cpp \
-split.cpp \
-classes/AbstractVM.cpp \
-classes/OperandFactory.cpp
+sources/Tools.cpp \
+sources/Command.cpp \
+sources/AbstractVM.cpp \
+sources/Int8.cpp \
+sources/Int16.cpp \
+sources/Int32.cpp \
+sources/Float.cpp \
+sources/Double.cpp \
+sources/OperandFactory.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
