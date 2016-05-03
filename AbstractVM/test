@@ -160,4 +160,7 @@ pop
 push int8(10)
 print
 pop
+; Testing push NAN
+push int8(Toto)
+; Testing no exit in program
 ;;
