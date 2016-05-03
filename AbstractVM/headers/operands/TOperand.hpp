@@ -18,25 +18,6 @@
 # include "eOperandType.hpp"
 # include <stdexcept>
 
-/*
-typedef struct s_operand {
-	eOperandType	type;
-	std::string   name;
-	int		precision;
-	long		min;
-	long		max;
-} t_operand;
-
-static t_operand operands[] =
-{
-	{Int8, "int8", 0 , -128, 127},
-	{Int16, "int16", 1, -32768, 32767},
-	{Int32, "int32", 2, -2147483648, 2147483647},
-	{Float, "float", 3, -32768, 32767},
-	{Double, "double", 4, -2147483648, 2147483647},
-};
-*/
-
 template <typename T>
 class	TOperand : public IOperand
 {
