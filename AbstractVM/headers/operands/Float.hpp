@@ -26,7 +26,6 @@ private:
 protected:
 //-------------------------------------------------------/ PROTECTED VARIABLES /
 //-------------------------------------------------------/ PROTECTED FUNCTIONS /
-	virtual IOperand const *CreateNew(double const value) const;
 
 public:
 //----------------------------------------------------------/ PUBLIC VARIABLES /
@@ -37,6 +36,7 @@ public:
 	virtual ~Float( void );
 //---------------------------------------------------------/ GETTERS & SETTERS /
 //----------------------------------------------------------/ PUBLIC FUNCTIONS /
+	virtual IOperand const *CreateNew(double const value) const;
 //-----------------------------------------------------------------/ OPERATORS /
 	Float &	operator=( Float const & rhs );
 };

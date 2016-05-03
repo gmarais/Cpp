@@ -64,24 +64,24 @@ const char**	AbstractVM::getFiles() const
 void		AbstractVM::push(Parameter_t const *param)
 {
 	if (param == NULL)
-		throw std::logic_error( "Missing argument." );
+		throw Exception( "Missing argument." );
 	if (this->typeNames_.count(param->type) <= 0)
-		throw std::logic_error( "Unknown variable type." );
+		throw Exception( "Unknown variable type." );
 	if (param->value.empty())
-		throw std::logic_error( "Empty value." );
+		throw Exception( "Empty value." );
 	if (ft_isANumber(param->value) == false)
-		throw std::logic_error( "Value is NAN." );
+		throw Exception( "Value is NAN." );
 	IOperand const *operand = factory_.createOperand(this->typeNames_[param->type], param->value);
 	if (operand != NULL)
-		stack_.push_back(operand);
+		stack_.push_front(operand);
 }
 
 void		AbstractVM::pop(Parameter_t const *param)
 {
 	if (param != NULL)
-		throw std::logic_error( "Unexpected argument." );
+		throw Exception( "Unexpected argument." );
 	if (stack_.size() <= 0)
-		throw std::logic_error( "Pop on empty stack." );
+		throw Exception( "Pop on empty stack." );
 	IOperand const *nb = stack_.front();
 	stack_.pop_front();
 	delete nb;
@@ -90,7 +90,7 @@ void		AbstractVM::pop(Parameter_t const *param)
 void		AbstractVM::dump(Parameter_t const *param)
 {
 	if (param != NULL)
-		throw std::logic_error( "Unexpected argument." );
+		throw Exception( "Unexpected argument." );
 	for (std::list<IOperand const *>::iterator i = stack_.begin(); i != stack_.end(); ++i)
 	{
 		std::cout << (*i)->toString() << std::endl;
@@ -100,29 +100,29 @@ void		AbstractVM::dump(Parameter_t const *param)
 void		AbstractVM::assert(Parameter_t const *param)
 {
 	if (param == NULL)
-		throw std::logic_error( "Missing argument." );
+		throw Exception( "Missing argument." );
 	if (this->typeNames_.count(param->type) <= 0)
-		throw std::logic_error( "Unknown variable type." );
+		throw Exception( "Unknown variable type." );
 	if (param->value.empty())
-		throw std::logic_error( "Empty value." );
+		throw Exception( "Empty value." );
 	if (ft_isANumber(param->value) == false)
-		throw std::logic_error( "Value is NAN." );
+		throw Exception( "Value is NAN." );
 	IOperand const *operand = factory_.createOperand(this->typeNames_[param->type], param->value);
 	IOperand const *nb1 = stack_.front();
 	if (operand->getType() != nb1->getType())
-		throw std::logic_error( "Value has different type." );
+		throw Exception( "Value has different type." );
 	if (operand->getPrecision() != nb1->getPrecision())
-		throw std::logic_error( "Value has different precision." );
+		throw Exception( "Value has different precision." );
 	if (operand->toString().compare(nb1->toString()) != 0)
-		throw std::logic_error( "Unequal values." );
+		throw Exception( "Unequal values." );
 }
 
 void		AbstractVM::add(Parameter_t const *param)
 {
 	if (param != NULL)
-		throw std::logic_error( "Unexpected argument." );
+		throw Exception( "Unexpected argument." );
 	if (stack_.size() < 2)
-		throw std::logic_error( "Not enough elements in the stack." );
+		throw Exception( "Not enough elements in the stack." );
 	IOperand const *nb1 = stack_.front();
 	stack_.pop_front();
 	IOperand const *nb2 = stack_.front();
@@ -134,7 +134,7 @@ void		AbstractVM::add(Parameter_t const *param)
 		delete nb1;
 		delete nb2;
 	}
-	catch (const std::exception & e)
+	catch (const Exception &e)
 	{
 		stack_.push_front(nb1);
 		throw e;
@@ -144,9 +144,9 @@ void		AbstractVM::add(Parameter_t const *param)
 void		AbstractVM::sub(Parameter_t const *param)
 {
 	if (param != NULL)
-		throw std::logic_error( "Unexpected argument." );
+		throw Exception( "Unexpected argument." );
 	if (stack_.size() < 2)
-		throw std::logic_error( "Not enough elements in the stack." );
+		throw Exception( "Not enough elements in the stack." );
 	IOperand const *nb1 = stack_.front();
 	stack_.pop_front();
 	IOperand const *nb2 = stack_.front();
@@ -158,7 +158,7 @@ void		AbstractVM::sub(Parameter_t const *param)
 		delete nb1;
 		delete nb2;
 	}
-	catch (const std::exception & e)
+	catch (const Exception &e)
 	{
 		stack_.push_front(nb1);
 		throw e;
@@ -168,9 +168,9 @@ void		AbstractVM::sub(Parameter_t const *param)
 void		AbstractVM::mul(Parameter_t const *param)
 {
 	if (param != NULL)
-		throw std::logic_error( "Unexpected argument." );
+		throw Exception( "Unexpected argument." );
 	if (stack_.size() < 2)
-		throw std::logic_error( "Not enough elements in the stack." );
+		throw Exception( "Not enough elements in the stack." );
 	IOperand const *nb1 = stack_.front();
 	stack_.pop_front();
 	IOperand const *nb2 = stack_.front();
@@ -182,7 +182,7 @@ void		AbstractVM::mul(Parameter_t const *param)
 		delete nb1;
 		delete nb2;
 	}
-	catch (const std::exception & e)
+	catch (const Exception &e)
 	{
 		stack_.push_front(nb1);
 		throw e;
@@ -192,9 +192,9 @@ void		AbstractVM::mul(Parameter_t const *param)
 void		AbstractVM::div(Parameter_t const *param)
 {
 	if (param != NULL)
-		throw std::logic_error( "Unexpected argument." );
+		throw Exception( "Unexpected argument." );
 	if (stack_.size() < 2)
-		throw std::logic_error( "Not enough elements in the stack." );
+		throw Exception( "Not enough elements in the stack." );
 	IOperand const *nb1 = stack_.front();
 	stack_.pop_front();
 	IOperand const *nb2 = stack_.front();
@@ -206,7 +206,7 @@ void		AbstractVM::div(Parameter_t const *param)
 		delete nb1;
 		delete nb2;
 	}
-	catch (const std::exception & e)
+	catch (const Exception &e)
 	{
 		stack_.push_front(nb1);
 		throw e;
@@ -216,9 +216,9 @@ void		AbstractVM::div(Parameter_t const *param)
 void		AbstractVM::mod(Parameter_t const *param)
 {
 	if (param != NULL)
-		throw std::logic_error( "Unexpected argument." );
+		throw Exception( "Unexpected argument." );
 	if (stack_.size() < 2)
-		throw std::logic_error( "Not enough elements in the stack." );
+		throw Exception( "Not enough elements in the stack." );
 	IOperand const *nb1 = stack_.front();
 	stack_.pop_front();
 	IOperand const *nb2 = stack_.front();
@@ -230,7 +230,7 @@ void		AbstractVM::mod(Parameter_t const *param)
 		delete nb1;
 		delete nb2;
 	}
-	catch (const std::exception & e)
+	catch (const Exception &e)
 	{
 		stack_.push_front(nb1);
 		throw e;
@@ -240,19 +240,19 @@ void		AbstractVM::mod(Parameter_t const *param)
 void		AbstractVM::print(Parameter_t const *param)
 {
 	if (param != NULL)
-		throw std::logic_error( "Unexpected argument." );
+		throw Exception( "Unexpected argument." );
 	if (stack_.size() < 1)
-		throw std::logic_error( "Not enough elements in the stack." );
+		throw Exception( "Not enough elements in the stack." );
 	IOperand const *nb1 = stack_.front();
 	if (nb1->getType() != INT8)
-		throw std::logic_error( "Value is not of type INT8." );
+		throw Exception( "Value is not of type INT8." );
 	std::cout << static_cast<char>(ft_atod(nb1->toString()));
 }
 
 void		AbstractVM::exit(Parameter_t const *param)
 {
 	if (param != NULL)
-		throw std::logic_error( "Unexpected argument." );
+		throw Exception( "Unexpected argument." );
 	this->exited_ = true;
 }
 
@@ -262,7 +262,7 @@ void			AbstractVM::fetchCommand(Command *cmd)
 	if (this->commands_[cmd->getName()] != NULL)
 		(this->*(this->commands_[cmd->getName()]))(cmd->getParam());
 	else
-		throw std::logic_error( "Unknown instruction." );
+		throw Exception( "Unknown instruction." );
 }
 
 void			AbstractVM::executeLine(std::string line, unsigned int lineNumber)
@@ -285,14 +285,14 @@ void			AbstractVM::executeLine(std::string line, unsigned int lineNumber)
 			delete cmd;
 			cmd = NULL;
 		}
-		catch (const std::exception & e)
+		catch (const Exception &e)
 		{
 			if (cmd != NULL)
 			{
 				delete cmd;
 				cmd = NULL;
 			}
-			std::cerr << "\033[0;31mError line " << lineNumber << ": " << e.what() << "\033[0;0m" << std::endl;
+			std::cerr << "\033[1;31mError line " << lineNumber << ": \033[0;31m" << e.what() << "\033[0;0m" << std::endl;
 		}
 	}
 }
@@ -305,7 +305,7 @@ int				AbstractVM::run()
 
 	if (this->filesNumber_ < 0)
 	{
-		std::cout << "\033[1;31mUsage error:\033[0;0m This program takes at least one argument." << std::endl;
+		std::cout << "\033[1;31mUsage Error:\033[0;31m This program takes at least one argument.\033[0;0m" << std::endl;
 		return 1;
 	}
 	else if (this->filesNumber_)
@@ -333,7 +333,7 @@ int				AbstractVM::run()
 		this->executeLine(*i, std::distance(lines.begin(), i) + 1);
 	}
 	if (!this->exited_)
-		std::cerr << "\033[0;31m" << "The program doesn't have an exit instruction." << "\033[0;0m" << std::endl;
+		std::cerr << "\033[1;31m" << "Error:\033[0;31m The program doesn't have an exit instruction.\033[0;0m" << std::endl;
 	return 0;
 }
 

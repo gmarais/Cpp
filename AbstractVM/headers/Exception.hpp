@@ -1,44 +1,37 @@
 // ************************************************************************** //
 //                                                                            //
 //                                                        :::      ::::::::   //
-//   Int8.hpp                                           :+:      :+:    :+:   //
+//   Exception.hpp                                      :+:      :+:    :+:   //
 //                                                    +:+ +:+         +:+     //
 //   By: gmarais <gmarais@student.42.fr>            +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
-//   Created: 2016/04/26 20:07:08 by gmarais           #+#    #+#             //
-//   Updated: 2016/04/26 20:07:08 by gmarais          ###   ########.fr       //
+//   Created: 2016/05/03 16:56:35 by gmarais           #+#    #+#             //
+//   Updated: 2016/05/03 16:56:35 by gmarais          ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
-#ifndef _Int8_CLASS_
-# define _Int8_CLASS_
+#ifndef _Exception_CLASS_
+# define _Exception_CLASS_
 
-# include <stdint.h>
-# include "eOperandType.hpp"
-# include "TOperand.hpp"
+# include <string>
+# include <exception>
 
-class	Int8 : public TOperand<int8_t>
+class	Exception : public std::exception
 {
 private:
 //---------------------------------------------------------/ PRIVATE VARIABLES /
-//---------------------------------------------------------/ PRIVATE FUNCTIONS /
-
-protected:
-//-------------------------------------------------------/ PROTECTED VARIABLES /
-//-------------------------------------------------------/ PROTECTED FUNCTIONS /
+	std::string msg_;
 
 public:
-//----------------------------------------------------------/ PUBLIC VARIABLES /
 //------------------------------------------------------/ CONSTRUCT & DESTRUCT /
-	Int8( void );
-	Int8( double n );
-	Int8( Int8 const & src );
-	virtual ~Int8( void );
+	Exception(std::string const & msg) throw();
+	Exception(Exception const & src);
+	virtual ~Exception() throw();
 //---------------------------------------------------------/ GETTERS & SETTERS /
-//----------------------------------------------------------/ PUBLIC FUNCTIONS /
-	virtual IOperand const *CreateNew(double const value) const;
+	virtual const char *what() const throw();
 //-----------------------------------------------------------------/ OPERATORS /
-	Int8 &	operator=( Int8 const & rhs );
+	Exception &	operator=(Exception const & rhs);
+
 };
 
 #endif

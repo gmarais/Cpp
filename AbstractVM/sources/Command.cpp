@@ -51,12 +51,12 @@ void Command::ParseParameter(std::string line)
 			param_->type = line.substr(start, pos);
 			param_->value = line.substr(posValueStart + 1, posValueEnd - posValueStart - 1);
 			if (posValueEnd != line.length() - 1)
-				throw std::logic_error( "Too many parameters provided for instruction." );
+				throw Exception( "Too many parameters provided for instruction." );
 		}
 		else
 		{
 			param_ = NULL;
-			throw std::logic_error( "Syntax error near parameter definition." );
+			throw Exception( "Syntax error near parameter definition." );
 		}
 	}
 	else

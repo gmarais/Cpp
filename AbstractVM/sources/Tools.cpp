@@ -56,10 +56,22 @@ std::string ft_dtoa(double nb)
 bool ft_isANumber(std::string str)
 {
 	std::string::size_type	start = 0;
-	std::string::size_type pos = str.find_first_not_of("0123456789. ", start);
+	std::string::size_type posnbr = str.find_first_of("0123456789", start);
+	if (posnbr == std::string::npos)
+		return false;
+	std::string::size_type pos = str.find_first_not_of("-0123456789. ", start);
 	size_t n = std::count(str.begin(), str.end(), '.');
 	if (pos != std::string::npos || n > 1)
 		return false;
+	size_t nMinus = std::count(str.begin(), str.end(), '-');
+	if (nMinus > 1)
+		return false;
+	if (nMinus > 0)
+	{
+		std::string::size_type posMinus = str.find_first_of("-", start);
+		if (posnbr < posMinus)
+			return false;
+	}
 	return true;
 }
 

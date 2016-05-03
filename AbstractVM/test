@@ -1,7 +1,163 @@
-yoloswag
-push toto
-movtata
-mov tutu
-
-fin
-
+;
+;	Lets start wih a Hello world!
+;
+push int8(72)
+print
+push int8(101)
+print
+push int8(108)
+print
+print
+push int8(111)
+print
+push int8(32)
+print
+push int8(119)
+print
+push int8(111)
+print
+push int8(114)
+print
+push int8(108)
+print
+push int8(100)
+print
+push int8(33)
+print
+push int8(10)
+print
+print
+;
+; Now try basic functionnality with INT8
+;
+dump
+assert int8(10) ; should be true
+assert int16(10) ; wrong type
+assert int8(5) ; wrong value
+add
+pop
+sub
+push int8(10)
+print
+pop
+dump
+; Testing underflow here (-8 * 114)
+mul
+push int8(10)
+print
+pop
+div
+mod
+pop
+pop
+dump
+; Testing overflow here (119 * 32)
+mul
+pop
+pop
+pop
+pop
+pop
+; Stack should be already empty at this point testing pop on empty stack
+pop
+push int8(10)
+push int8(10)
+print
+sub
+push int8(10)
+dump
+div ; Division by 0
+mod ; Modulo by 0
+pop
+push int8(10)
+print
+pop
+pop
+;
+; Now trying other types
+;
+; INT16
+;
+push int16 ( 257 )
+push int8 ( 10 )
+dump
+mul ; This time it should work
+assert int16(2570) ; should be true
+dump
+push int16(2570)
+; Testing overflow here (2570^2)
+mul
+pop
+pop
+; Get some space
+push int8(10)
+print
+pop
+;
+;INT32
+;
+push int16 ( 2570 )
+push int32 ( 2570 )
+dump
+mul ; This time it should work
+assert int32(6604900) ; should be true
+dump
+push int16(2570)
+; Testing overflow here (2570^3)
+mul
+pop
+pop
+; Get some space
+push int8(10)
+print
+pop
+;
+;FLOAT
+;
+push float ( 0.5 )
+push int32 ( 2570 )
+dump
+mul ; This time it should work
+assert float(1285) ; should be true
+dump
+push int16(-10000)
+; Testing underflow here (-12850000)
+mul
+; Testing modulo with float
+mod
+pop
+pop
+; Get some space
+push int8(10)
+print
+pop
+;
+;DOUBLE
+;
+push double ( 0.5 )
+push int32 ( 2570 )
+dump
+mul ; This time it should work
+assert double(1285) ; should be true
+dump
+push int16(-10000)
+; this time it should work (-12850000)
+mul
+assert double(-12850000) ; should be true
+; Get some space
+push int8(10)
+print
+pop
+dump
+push int16(-10000)
+; Testing overflow here (-128500000000)
+mul
+; Testing modulo with double
+mod
+pop
+pop
+; Get some space
+push int8(10)
+print
+pop
+;;

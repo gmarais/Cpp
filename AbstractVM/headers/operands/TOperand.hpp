@@ -16,7 +16,7 @@
 # include "Tools.hpp"
 # include "IOperand.hpp"
 # include "eOperandType.hpp"
-# include <stdexcept>
+# include <Exception.hpp>
 
 template <typename T>
 class	TOperand : public IOperand
@@ -35,9 +35,6 @@ protected:
 	int precision_;
 
 
-//-------------------------------------------------------/ PROTECTED FUNCTIONS /
-	virtual IOperand const *CreateNew(double const value) const = 0;
-
 public:
 //----------------------------------------------------------/ PUBLIC VARIABLES /
 //------------------------------------------------------/ CONSTRUCT & DESTRUCT /
@@ -51,10 +48,10 @@ public:
 		if (value < this->maxValue_)
 		{
 			if (value < this->minValue_)
-				throw std::logic_error( "Underflow." );
+				throw Exception( "Underflow." );
 		}
 		else
-			throw std::logic_error( "Overflow." );
+			throw Exception( "Overflow." );
 		value_ = value;
 	}
 
@@ -89,6 +86,7 @@ public:
 	}
 
 //----------------------------------------------------------/ PUBLIC FUNCTIONS /
+	virtual IOperand const *CreateNew(double const value) const = 0;
 	virtual std::string const &	toString( void ) const
 	{
 		std::string *str = new std::string();
@@ -99,6 +97,37 @@ public:
 			ss << value_;
 		str->append(ss.str());
 		return (*str);
+	}
+
+	virtual IOperand const *createRightType(double value, IOperand const & rhs) const
+	{
+		if (rhs.getType() == INT8)
+		{
+			TOperand<int8_t> const *int8Container = dynamic_cast<TOperand<int8_t> const *>(&rhs);
+			return int8Container->CreateNew(value);
+		}
+		if (rhs.getType() == INT16)
+		{
+			TOperand<int16_t> const *int16Container = dynamic_cast<TOperand<int16_t> const *>(&rhs);
+			return int16Container->CreateNew(value);
+		}
+		if (rhs.getType() == INT32)
+		{
+			TOperand<int32_t> const *int32Container = dynamic_cast<TOperand<int32_t> const *>(&rhs);
+			return int32Container->CreateNew(value);
+		}
+		if (rhs.getType() == FLOAT)
+		{
+			TOperand<float> const *floatContainer = dynamic_cast<TOperand<float> const *>(&rhs);
+			return floatContainer->CreateNew(value);
+		}
+		if (rhs.getType() == DOUBLE)
+		{
+			TOperand<double> const *doubleContainer = dynamic_cast<TOperand<double> const *>(&rhs);
+			return doubleContainer->CreateNew(value);
+		}
+		throw Exception( "Invalid right hand operand." );
+		return NULL;
 	}
 
 //-----------------------------------------------------------------/ OPERATORS /
@@ -117,11 +146,7 @@ public:
 		result = value_ + ft_atod(rhs.toString());
 		if (precision_ >= rhs.getPrecision())
 			return this->CreateNew(result);
-		TOperand const *rhsp = dynamic_cast<TOperand const *>(&rhs);
-		if (rhsp != NULL)
-			return rhsp->CreateNew(result);
-		throw std::logic_error( "Invalid right hand operand." );
-		return NULL;
+		return createRightType(result, rhs);
 	}
 
 	virtual IOperand const *	operator-( IOperand const & rhs ) const
@@ -131,11 +156,7 @@ public:
 		result = value_ - ft_atod(rhs.toString());
 		if (precision_ >= rhs.getPrecision())
 			return this->CreateNew(result);
-		TOperand const *rhsp = dynamic_cast<TOperand const *>(&rhs);
-		if (rhsp != NULL)
-			return rhsp->CreateNew(result);
-		throw std::logic_error( "Invalid right hand operand." );
-		return NULL;
+		return createRightType(result, rhs);
 	}
 
 	virtual IOperand const *	operator*( IOperand const & rhs ) const
@@ -145,11 +166,7 @@ public:
 		result = value_ * ft_atod(rhs.toString());
 		if (precision_ >= rhs.getPrecision())
 			return this->CreateNew(result);
-		TOperand const *rhsp = dynamic_cast<TOperand const *>(&rhs);
-		if (rhsp != NULL)
-			return rhsp->CreateNew(result);
-		throw std::logic_error( "Invalid right hand operand." );
-		return NULL;
+		return createRightType(result, rhs);
 	}
 
 	virtual IOperand const *	operator/( IOperand const & rhs ) const
@@ -159,17 +176,13 @@ public:
 
 		if (rho == 0)
 		{
-			throw std::logic_error( "Division by 0." );
+			throw Exception( "Division by 0." );
 			return NULL;
 		}
 		result = value_ / rho;
 		if (precision_ >= rhs.getPrecision())
 			return this->CreateNew(result);
-		TOperand const *rhsp = dynamic_cast<TOperand const *>(&rhs);
-		if (rhsp != NULL)
-			return rhsp->CreateNew(result);
-		throw std::logic_error( "Invalid right hand operand." );
-		return NULL;
+		return createRightType(result, rhs);
 	}
 
 	virtual IOperand const *	operator%( IOperand const & rhs ) const
@@ -178,20 +191,16 @@ public:
 		double rho = ft_atod(rhs.toString());
 
 		if (rho == 0)
-			throw std::logic_error( "Modulo by 0." );
+			throw Exception( "Modulo by 0." );
 		if (type_ == FLOAT || rhs.getType() == FLOAT )
-			throw std::logic_error( "Modulo with float." );
+			throw Exception( "Modulo with float." );
 		if (type_ == DOUBLE || rhs.getType() == DOUBLE )
-			throw std::logic_error( "Modulo with double." );
+			throw Exception( "Modulo with double." );
 
-		result = value_ * ft_atod(rhs.toString());
+		result = static_cast<int>(value_) % ft_atoi(rhs.toString());
 		if (precision_ >= rhs.getPrecision())
 			return this->CreateNew(result);
-		TOperand const *rhsp = dynamic_cast<TOperand const *>(&rhs);
-		if (rhsp != NULL)
-			return rhsp->CreateNew(result);
-		throw std::logic_error( "Invalid right hand operand." );
-		return NULL;
+		return createRightType(result, rhs);
 	}
 };
 

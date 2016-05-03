@@ -18,6 +18,7 @@ CXXFLAGS += -I./ -I./headers -I./headers/operands
 NAME = avm
 SRC = main.cpp \
 sources/Tools.cpp \
+sources/Exception.cpp \
 sources/Command.cpp \
 sources/AbstractVM.cpp \
 sources/Int8.cpp \
